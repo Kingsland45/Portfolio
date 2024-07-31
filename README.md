@@ -12,7 +12,10 @@ Research and all work done by Austin Kingsland.
 Technology used: VirtualBox, Linux Server, Openstack, Apache, MariaDB, SSH, Nano, RSA encryption.
 
 # Iris deep learning script
-
+In this project, I aimed to demonstrate high-level computer science and machine learning skills by building, 
+evaluating, and comparing multiple machine learning models using the Iris dataset. The Iris dataset, 
+a well-known dataset in the field of machine learning, contains measurements of iris flowers from three different species: setosa, versicolor, and virginica. 
+The primary goal was to classify the species of iris flowers based on these measurements.
 
 
 If you would like to see my other work, such as AI training models using Python or my Infectous Disease Simulator, please email me: austinkingsland04@gmail.com
