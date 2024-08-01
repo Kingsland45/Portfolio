@@ -17,4 +17,6 @@ evaluating, and comparing multiple machine learning models using the Iris datase
 The primary goal was to classify the species of iris flowers based on these measurements.
 
 
-If you would like to see my other work, such as AI training models using Python or my Infectous Disease Simulator, please email me: austinkingsland04@gmail.com
+If you are interested in me as an entry level computer scientist candidate,  please email me: austinkingsland04@gmail.com
+
+Thank you for your time viewing my portfolio.
