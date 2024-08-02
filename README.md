@@ -18,14 +18,14 @@ evaluating, and comparing multiple machine learning models using the Iris datase
 iris flowers from three different species: setosa, versicolor, and virginica. 
 The primary goal was to classify the species of iris flowers based on these measurements.
 
-Python, Machine Learning Algorithms
+Technology Used: Python, Machine Learning Algorithms
 
 # Runge-Kutta Damped Oscillator
 In this project, I implemented the Runge-Kutta method to solve a damped harmonic oscillator problem. 
 The solution was then visualized using Python's matplotlib library. This project showcases my skills in numerical methods, 
 Python programming, and data visualization.
 
-Technology used: C++, Python, Matplotlib, Pandas, Numerical Methods.
+Technology used: C++, Python, G++, Matplotlib, Pandas, Numerical Methods.
 
 # Final Note
 Research and all work done by Austin Kingsland.
