@@ -31,6 +31,8 @@ Technology used: C++, Python, G++, Matplotlib, Pandas, Numerical Methods.
 In this Java program I implement several sorting algorithms on a random array of integers, comparing the sort times in 
 nanoseconds.
 
+Technology used: Java
+
 # Final Note
 Research and all work done by Austin Kingsland.
 
