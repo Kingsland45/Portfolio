@@ -27,6 +27,10 @@ Python programming, and data visualization.
 
 Technology used: C++, Python, G++, Matplotlib, Pandas, Numerical Methods.
 
+# Java Sorting Comparisions
+In this Java program I implement several sorting algorithms on a random array of integers, comparing the sort times in 
+nanoseconds.
+
 # Final Note
 Research and all work done by Austin Kingsland.
 
