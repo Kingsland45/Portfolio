@@ -33,6 +33,12 @@ nanoseconds.
 
 Technology used: Java
 
+# People Management System (Program.vb file)
+In this VB.NET Program I demonstrate object oriented design within the .NET framework. The program includes exception handling, 
+File I/O, Permanent data retention via local CSV File, and a user interface.
+
+Technology used: VB.NET, .dontnet
+
 # Final Note
 Research and all work done by Austin Kingsland.
 
