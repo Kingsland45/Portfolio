@@ -12,6 +12,9 @@ If there are ever any issues, the VM can revert to saved states or outright get 
 
 Technology used: VirtualBox, Linux Server, Openstack, Apache, MariaDB, SSH, Nano, RSA encryption.
 
+# Python Invoicing Automation Project
+This project is a Python-based desktop application designed to automate the generation of monthly invoices for my cleaning business. The application features a user-friendly GUI built with Tkinter, allowing users to easily create PDF invoices, manage customer information, and track billing amounts. The invoices are formatted professionally, complete with customizable line items, tax calculations, and a thank-you message. The project also includes robust error handling and the ability to add up to three additional line items per invoice. The application is packaged into a standalone executable using PyInstaller, ensuring that it can be distributed and run on any Windows machine without requiring Python or additional dependencies. This project demonstrates skills in Python, GUI development, PDF generation, and application packaging.
+
 # Iris deep learning script
 In this project, I aimed to demonstrate computer science and machine learning skills by building, 
 evaluating, and comparing multiple machine learning models using the Iris dataset. The Iris dataset contains measurements of 
