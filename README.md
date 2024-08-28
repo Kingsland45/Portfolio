@@ -13,7 +13,16 @@ If there are ever any issues, the VM can revert to saved states or outright get 
 Technology used: VirtualBox, Linux Server, Openstack, Apache, MariaDB, SSH, Nano, RSA encryption.
 
 # Python Invoicing Automation Project
-This project is a Python-based desktop application designed to automate the generation of monthly invoices for my cleaning business. The application features a user-friendly GUI built with Tkinter, allowing users to easily create PDF invoices, manage customer information, and track billing amounts. The invoices are formatted professionally, complete with customizable line items, tax calculations, and a thank-you message. The project also includes robust error handling and the ability to add up to three additional line items per invoice. The application is packaged into a standalone executable using PyInstaller, ensuring that it can be distributed and run on any Windows machine without requiring Python or additional dependencies. This project demonstrates skills in Python, GUI development, PDF generation, and application packaging.
+The Invoice Automation System is a robust tool designed to streamline the invoicing process for small businesses. 
+I developed this system for use in my own LLC, Persnickety Cleaning Company, where it saves me countless hours each month 
+by automating the generation and emailing of invoices. The system automatically creates professional PDF invoices,
+customized with client details and billing information, and then seamlessly emails them to clients, supporting multiple recipients per client.
+It includes a customer management feature for adding, editing, and deleting customer records, with all data securely stored in
+CSV format for easy persistence and backup. To ensure security, sensitive email credentials are encrypted and securely stored. 
+Built with a user-friendly Tkinter-based GUI, the system is accessible to users with varying levels of technical expertise. 
+
+This automation has significantly reduced the time spent on administrative tasks, allowing me to focus on growing my business 
+while minimizing errors and ensuring timely invoicing.
 
 # Iris deep learning script
 In this project, I aimed to demonstrate computer science and machine learning skills by building, 
