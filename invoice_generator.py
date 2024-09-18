@@ -67,7 +67,7 @@ def create_invoice(data, file_path, amount, invoice_number, additional_items=[])
     top_margin = 0.75 * inch
     y_position = height - top_margin
 
-    c.setStrokeColorRGB(0, 0.5, 0) 
+    c.setStrokeColorRGB(0, 0.5, 0)
     c.setLineWidth(4)
     c.rect(0.5 * inch, 0.5 * inch, width - inch, height - inch)
 
@@ -75,39 +75,47 @@ def create_invoice(data, file_path, amount, invoice_number, additional_items=[])
     c.rect(0.6 * inch, 0.6 * inch, width - 1.2 * inch, height - 1.2 * inch)
 
     c.setFont("Helvetica-Bold", 24)
-    c.setFillColorRGB(0, 0.5, 0)  
+    c.setFillColorRGB(0, 0.5, 0)
     c.drawCentredString(width / 2, y_position - 0.5 * inch, "Persnickety Cleaning Company")
 
-    y_position -= 1 * inch  
+    y_position -= 1 * inch
     c.setFont("Helvetica-Bold", 12)
-    c.setFillColorRGB(0, 0, 0) 
+    c.setFillColorRGB(0, 0, 0)
 
+    # Keeping the spacing unchanged as per your request
     current_date = datetime.now().strftime("%B %d, %Y")
     c.drawString(left_margin, y_position, f"Date: {current_date}")
-    c.drawRightString(width - left_margin, y_position, f"Invoice #: {invoice_number}")
+    c.drawRightString(width - left_margin - .13 * inch, y_position, f"Invoice #: {invoice_number}")
     c.drawRightString(width - left_margin, y_position - 0.2 * inch, "Terms: Net 15 days")
 
-    y_position -= 1 * inch  
+    y_position -= 1 * inch
     c.setFont("Helvetica-Bold", 12)
     c.drawString(left_margin, y_position, "Bill To:")
 
-    y_position -= 0.25 * inch  
+    y_position -= 0.25 * inch
     c.setFont("Helvetica", 12)
-    
+
     # Check and clean the Customer Name
     customer_name = data.get('Customer Name', '').strip()
     if not customer_name:
         customer_name = "Unknown Customer"
-    
+
     c.drawString(left_margin + 0.1 * inch, y_position, customer_name)
 
-    y_position -= 0.25 * inch  
+    y_position -= 0.25 * inch
     customer_address = data.get('Customer Address', '').strip('"')
     c.drawString(left_margin + 0.1 * inch, y_position, customer_address)
 
-    y_position -= 1 * inch  
+    # Add city, state, and zip
+    y_position -= 0.25 * inch
+    customer_city = data.get('City', '').strip()
+    customer_state = data.get('State', '').strip()
+    customer_zip = str(data.get('Zip Code', '')).strip()  # Ensure Zip Code is treated as a string
+    c.drawString(left_margin + 0.1 * inch, y_position, f"{customer_city}, {customer_state} {customer_zip}")
+
+    y_position -= 1 * inch
     c.setFont("Helvetica-Bold", 14)
-    c.setFillColorRGB(0, 0.5, 0)  
+    c.setFillColorRGB(0, 0.5, 0)
     c.drawString(left_margin, y_position, "DESCRIPTION")
     c.drawRightString(width - left_margin, y_position, "AMOUNT")
 
@@ -115,30 +123,37 @@ def create_invoice(data, file_path, amount, invoice_number, additional_items=[])
     c.setLineWidth(1)
     c.line(left_margin, y_position, width - left_margin, y_position)
 
-    y_position -= 0.5 * inch  
+    y_position -= 0.5 * inch
     c.setFont("Helvetica", 12)
-    c.setFillColorRGB(0, 0, 0)  
+    c.setFillColorRGB(0, 0, 0)
 
-    c.drawString(left_margin, y_position, "Cleaning Service for Current Month")
+    # Logic to get the previous month and year
+    current_date = datetime.now()
+    previous_month = current_date.month - 1 if current_date.month > 1 else 12
+    previous_year = current_date.year if current_date.month > 1 else current_date.year - 1
+    previous_month_name = datetime(previous_year, previous_month, 1).strftime("%B %Y")
+    
+    # Insert the previous month in the description
+    c.drawString(left_margin, y_position, f"Cleaning Service for {previous_month_name}")
     c.drawRightString(width - left_margin, y_position, f"${amount:.2f}")
 
     for description, additional_amount in additional_items:
-        y_position -= 0.3 * inch 
+        y_position -= 0.3 * inch
         c.drawString(left_margin, y_position, description)
         if additional_amount:
             c.drawRightString(width - left_margin, y_position, f"${additional_amount:.2f}")
-            amount += additional_amount 
+            amount += additional_amount
 
     tax_amount = amount * data['Tax Rate'] / 100
-    y_position -= 0.5 * inch  
+    y_position -= 0.5 * inch
     c.drawString(left_margin, y_position, f"Sales Tax ({data['Tax Rate']}%)")
     c.drawRightString(width - left_margin, y_position, f"${tax_amount:.2f}")
 
-    y_position -= 0.1 * inch  
+    y_position -= 0.1 * inch
     c.line(left_margin, y_position, width - left_margin, y_position)
 
     total_due = amount + tax_amount
-    y_position -= 0.5 * inch  
+    y_position -= 0.5 * inch
     c.setFont("Helvetica-Bold", 12)
     c.drawString(left_margin, y_position, "TOTAL DUE")
     c.drawRightString(width - left_margin, y_position, f"${total_due:.2f}")
@@ -149,34 +164,35 @@ def create_invoice(data, file_path, amount, invoice_number, additional_items=[])
     y_position -= 0.02 * inch
     c.line(left_margin, y_position, width - left_margin, y_position)
 
-    y_position -= 1 * inch  
+    y_position -= 1 * inch
     c.setFont("Helvetica-Bold", 12)
-    c.setFillColorRGB(0, 0, 0)  
+    c.setFillColorRGB(0, 0, 0)
     c.drawString(left_margin, y_position, "Remit Payment To:")
 
-    y_position -= 0.25 * inch  
+    y_position -= 0.25 * inch
     c.setFont("Helvetica", 12)
-    c.drawString(left_margin + 0.1 * inch, y_position, "Persnickety Cleaning Company")
+    c.drawString(left_margin + 0.1 * inch, y_position, "Persnickety Cleaning Company")  # corrected
 
-    y_position -= 0.25 * inch  
+    y_position -= 0.25 * inch
     c.drawString(left_margin + 0.1 * inch, y_position, "P.O. Box 428803")
 
-    y_position -= 0.25 * inch  
+    y_position -= 0.25 * inch
     c.drawString(left_margin + 0.1 * inch, y_position, "Cincinnati, OH 45242-8803")
 
-    y_position = 1 * inch  
+    y_position = 1 * inch
     c.setFont("Helvetica-Bold", 12)
-    c.setFillColorRGB(0, 0.5, 0)  
+    c.setFillColorRGB(0, 0.5, 0)
     c.drawCentredString(width / 2, y_position + 0.4 * inch, "Persnickety Cleaning Company")
 
     c.setFont("Helvetica", 12)
-    c.setFillColorRGB(0, 0, 0)  
+    c.setFillColorRGB(0, 0, 0)
     c.drawCentredString(width / 2, y_position + 0.2 * inch, "Phone: 513-850-0615")
 
     c.setFont("Helvetica-Oblique", 12)
     c.drawCentredString(width / 2, y_position, "Thank you for your business!")
 
     c.save()
+
 
 def load_data(csv_file):
     try:
@@ -216,22 +232,22 @@ def generate_invoices():
     if data is None:
         messagebox.showerror("Error", f"Failed to load {csv_file}")
         return
-    
+
     month_dir = create_monthly_directory()
     if month_dir is None:
         messagebox.showerror("Error", "Failed to create directory for storing invoices.")
         return
-    
+
     current_month = datetime.now().strftime("%m")
     current_year = datetime.now().strftime("%y")
-    
+
     for _, row in data.iterrows():
         try:
             amount = float(simpledialog.askstring("Billing Amount", f"Enter the billing amount for {row['Customer Name']}:"))
         except ValueError:
             messagebox.showerror("Input Error", "Please enter a valid numeric value for the amount.")
             return
-        
+
         additional_items = []
         for _ in range(3):  # Allow up to 3 additional items
             add_extra = messagebox.askyesno("Additional Line", "Would you like to add an extra line?")
@@ -249,7 +265,8 @@ def generate_invoices():
             additional_items.append((description, additional_amount))
 
         invoice_number = f"{row['CustomerID']}{current_month}{current_year}"
-        invoice_file = os.path.join(month_dir, f"invoice_{invoice_number}.pdf")
+        company_name = row['Customer Name'].replace(" ", "_")  # Replacing spaces with underscores for file name safety
+        invoice_file = os.path.join(month_dir, f"invoice_{invoice_number}_{company_name}.pdf")
         create_invoice(row, invoice_file, amount, invoice_number, additional_items)
         messagebox.showinfo("Invoice Created", f"Invoice created: {invoice_file}")
 
@@ -262,19 +279,25 @@ def email_invoice_to_customer(row):
     current_month = datetime.now().strftime("%m")
     current_year = datetime.now().strftime("%y")
     invoice_number = f"{row['CustomerID']}{current_month}{current_year}"
-    invoice_file = os.path.join(month_dir, f"invoice_{invoice_number}.pdf")
-    recipient = row['Email1']
 
+    # List all files in the directory and check for matching invoice number
+    invoice_file = None
+    for file in os.listdir(month_dir):
+        if invoice_number in file and file.endswith('.pdf'):
+            invoice_file = os.path.join(month_dir, file)
+            break
+
+    if invoice_file is None:
+        messagebox.showerror("Error", f"Invoice file not found for {row['Customer Name']}. Please generate the invoices first.")
+        return
+
+    recipient = row['Email1']
     if row['Email2'].strip().lower() != 'void':
         recipient += f",{row['Email2']}"
 
-    if not os.path.exists(invoice_file):
-        messagebox.showerror("Error", f"Invoice file not found for {row['Customer Name']}. Please generate the invoices first.")
-        return
-    
     subject = f"Invoice {invoice_number} from Persnickety Cleaning Company"
     body = f"Dear {row['Customer Name']},\n\nPlease find attached the invoice {invoice_number} for your recent service.\n\nThank you for your business.\n\nPersnickety Cleaning Company"
-    
+
     if send_email(recipient, subject, body, attachments=[invoice_file]):
         messagebox.showinfo("Email Sent", f"Invoice {invoice_number} sent to {recipient}")
     else:
@@ -347,11 +370,14 @@ def list_customers():
             new_id = id_entry.get().strip()
             new_name = name_entry.get().strip()
             new_address = address_entry.get().strip()
+            new_city = city_entry.get().strip()
+            new_state = state_entry.get().strip()
+            new_zip = zip_entry.get().strip()
             new_tax_rate = tax_rate_entry.get().strip()
             new_email1 = email1_entry.get().strip()
             new_email2 = email2_entry.get().strip()
 
-            if not (new_id and new_name and new_address and new_tax_rate and new_email1):
+            if not (new_id and new_name and new_address and new_city and new_state and new_zip and new_tax_rate and new_email1):
                 messagebox.showerror("Input Error", "All fields except Email2 are required.")
                 return
 
@@ -365,7 +391,7 @@ def list_customers():
             if not new_email2:
                 new_email2 = "void"
 
-            data.loc[len(data)] = [new_name, new_address, new_id, new_tax_rate, new_email1, new_email2]
+            data.loc[len(data)] = [new_name, new_address, new_city, new_state, new_zip, new_id, new_tax_rate, new_email1, new_email2]
             save_data(csv_file, data)
             listbox.insert(END, f"{new_id}: {new_name} - {new_address}")
             add_window.destroy()
@@ -385,19 +411,31 @@ def list_customers():
         address_entry = Entry(add_window)
         address_entry.grid(row=2, column=1)
 
-        Label(add_window, text="Tax Rate:").grid(row=3, column=0)
+        Label(add_window, text="City:").grid(row=3, column=0)
+        city_entry = Entry(add_window)
+        city_entry.grid(row=3, column=1)
+
+        Label(add_window, text="State:").grid(row=4, column=0)
+        state_entry = Entry(add_window)
+        state_entry.grid(row=4, column=1)
+
+        Label(add_window, text="Zip Code:").grid(row=5, column=0)
+        zip_entry = Entry(add_window)
+        zip_entry.grid(row=5, column=1)
+
+        Label(add_window, text="Tax Rate:").grid(row=6, column=0)
         tax_rate_entry = Entry(add_window)
-        tax_rate_entry.grid(row=3, column=1)
+        tax_rate_entry.grid(row=6, column=1)
 
-        Label(add_window, text="Email1:").grid(row=4, column=0)
+        Label(add_window, text="Email1:").grid(row=7, column=0)
         email1_entry = Entry(add_window)
-        email1_entry.grid(row=4, column=1)
+        email1_entry.grid(row=7, column=1)
 
-        Label(add_window, text="Email2:").grid(row=5, column=0)
+        Label(add_window, text="Email2:").grid(row=8, column=0)
         email2_entry = Entry(add_window)
-        email2_entry.grid(row=5, column=1)
+        email2_entry.grid(row=8, column=1)
 
-        Button(add_window, text="Save", command=save_new_customer).grid(row=6, columnspan=2)
+        Button(add_window, text="Save", command=save_new_customer).grid(row=9, columnspan=2)
 
     def edit_customer():
         selected = listbox.curselection()
@@ -411,11 +449,14 @@ def list_customers():
         def save_edited_customer():
             new_name = name_entry.get().strip()
             new_address = address_entry.get().strip()
+            new_city = city_entry.get().strip()
+            new_state = state_entry.get().strip()
+            new_zip = zip_entry.get().strip()
             new_tax_rate = tax_rate_entry.get().strip()
             new_email1 = email1_entry.get().strip()
             new_email2 = email2_entry.get().strip()
 
-            if not (new_name and new_address and new_tax_rate and new_email1):
+            if not (new_name and new_address and new_city and new_state and new_zip and new_tax_rate and new_email1):
                 messagebox.showerror("Input Error", "All fields except Email2 are required.")
                 return
 
@@ -425,12 +466,14 @@ def list_customers():
                 messagebox.showerror("Input Error", "Tax Rate must be a numeric value.")
                 return
 
-            # Set default value for Email2 if left blank
             if not new_email2:
                 new_email2 = "void"
 
             data.at[selected_idx, 'Customer Name'] = new_name
             data.at[selected_idx, 'Customer Address'] = new_address
+            data.at[selected_idx, 'City'] = new_city
+            data.at[selected_idx, 'State'] = new_state
+            data.at[selected_idx, 'Zip Code'] = new_zip
             data.at[selected_idx, 'Tax Rate'] = new_tax_rate
             data.at[selected_idx, 'Email1'] = new_email1
             data.at[selected_idx, 'Email2'] = new_email2
@@ -452,22 +495,37 @@ def list_customers():
         address_entry.insert(0, selected_customer['Customer Address'])
         address_entry.grid(row=1, column=1)
 
-        Label(edit_window, text="Tax Rate:").grid(row=2, column=0)
+        Label(edit_window, text="City:").grid(row=2, column=0)
+        city_entry = Entry(edit_window)
+        city_entry.insert(0, selected_customer['City'])
+        city_entry.grid(row=2, column=1)
+
+        Label(edit_window, text="State:").grid(row=3, column=0)
+        state_entry = Entry(edit_window)
+        state_entry.insert(0, selected_customer['State'])
+        state_entry.grid(row=3, column=1)
+
+        Label(edit_window, text="Zip Code:").grid(row=4, column=0)
+        zip_entry = Entry(edit_window)
+        zip_entry.insert(0, selected_customer['Zip Code'])
+        zip_entry.grid(row=4, column=1)
+
+        Label(edit_window, text="Tax Rate:").grid(row=5, column=0)
         tax_rate_entry = Entry(edit_window)
         tax_rate_entry.insert(0, selected_customer['Tax Rate'])
-        tax_rate_entry.grid(row=2, column=1)
+        tax_rate_entry.grid(row=5, column=1)
 
-        Label(edit_window, text="Email1:").grid(row=3, column=0)
+        Label(edit_window, text="Email1:").grid(row=6, column=0)
         email1_entry = Entry(edit_window)
         email1_entry.insert(0, selected_customer['Email1'])
-        email1_entry.grid(row=3, column=1)
+        email1_entry.grid(row=6, column=1)
 
-        Label(edit_window, text="Email2:").grid(row=4, column=0)
+        Label(edit_window, text="Email2:").grid(row=7, column=0)
         email2_entry = Entry(edit_window)
         email2_entry.insert(0, selected_customer['Email2'])
-        email2_entry.grid(row=4, column=1)
+        email2_entry.grid(row=7, column=1)
 
-        Button(edit_window, text="Save", command=save_edited_customer).grid(row=5, columnspan=2)
+        Button(edit_window, text="Save", command=save_edited_customer).grid(row=8, columnspan=2)
 
     def delete_customer():
         selected = listbox.curselection()
