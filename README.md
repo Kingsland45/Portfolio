@@ -1,3 +1,6 @@
+# ProfessionalVoxmoxServer
+A Voxmox VE server cluster acting as host for a professional web-hosting environment. With this state of the art build we are able to maintain 99.9% uptime on our server, use vitual machines to increase our security, maintain full compliance, create backups and screenshots, load balance, and create our own cloud environment. This is a scalable design that can be implemented on everything from home labs to modern data centers. 
+
 # VirtualServerProject
 A Linux Server VM running on VirtualBoxVM leveraging the Openstack Cloud to Create Web Servers Using QCow2 Ubuntu image. 
 
