@@ -22,7 +22,7 @@ Technology used: VirtualBox, Linux Server, Openstack, Apache, MariaDB, SSH, Nano
 
 # Python Invoicing Automation Project
 The Invoice Automation System is a robust tool designed to streamline the invoicing process for small businesses. 
-I developed this system for use in a professional company, Persnickety Cleaning Company, where it saves employees countless hours by automating the generation and emailing of invoices. 
+I developed this system for use in a professional company, where it saves employees countless hours by automating the generation and emailing of invoices. 
 The system automatically creates professional PDF invoices customized with client details and billing information, then seamlessly emails them to clients and
 supporting multiple recipients per client.
 
