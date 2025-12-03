@@ -63,6 +63,6 @@ Technology used: VB.NET, .dontnet
 # Final Note
 Research and all work done by Austin Kingsland.
 
-If you are interested in me as a computer scientist candidate,  please email me: austinkingsland04@gmail.com
+If you are interested in hiring me as a computer scientist,  please email me: austinkingsland04@gmail.com
 
-Thank you for your time viewing my portfolio.
+Thank you for viewing my portfolio.
