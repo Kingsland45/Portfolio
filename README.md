@@ -1,4 +1,4 @@
-# Professional Voxmox Server (2026 Build)
+# Professional Proxmox Server (2026 Build)
 A Voxmox VE server cluster acting as host for a professional web-hosting environment. With this state-of-the-art build we are able to maintain 99.9% uptime on our server, use vitual machines, Cloudflared tunnels with Wireguard to increase our security, maintain full compliance, create backups and screenshots, load balance, and ultimately create our own cloud environment.
 
 This is a professional, scalable design that can be implemented on everything from home labs to modern data centers. Following the step-by-step guide results in a complete and secure Proxmox host server running a virtual Ubuntu webserver that serves docker container applications over an encrypted cloudflared tunnel. It also includes a Traefik reverse proxy, Aginx, crowdsec, Fail2ban, a full back-end and much more. This is the ultimate guide to modern web backend development. 
